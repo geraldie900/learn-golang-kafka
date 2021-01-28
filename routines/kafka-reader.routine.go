@@ -1,6 +1,7 @@
 package routines
 
 import (
+	"encoding/json"
 	"fmt"
 	"golang_kafka/app/functions"
 	"golang_kafka/app/types"
@@ -16,7 +17,15 @@ func InitKafkaReader() {
 		select {
 		case resp := <-kafkamsg:
 			data = resp.(types.KafkaMessage)
-			fmt.Println(data)
+			var response types.Product
+			err := json.Unmarshal(data.Value.Product, &response)
+			// fmt.Println("BEFORE", data)
+			if err != nil {
+				//err
+			}
+			// fmt.Println(response)
+			response2, err := json.Marshal(response)
+			fmt.Println(string(response2))
 		}
 	}
 }

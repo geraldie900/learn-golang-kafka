@@ -8,8 +8,8 @@ type KafkaMessage struct {
 
 // KafkaValue ....
 type KafkaValue struct {
-	RequestType string  `json:"request_type"`
-	Product     Product `json:"product"`
+	RequestType string `json:"request_type"`
+	Product     []byte `json:"product"`
 }
 
 // Product ...

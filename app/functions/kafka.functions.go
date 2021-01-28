@@ -18,7 +18,7 @@ func ProduceData(topic string, message types.KafkaMessage) bool {
 
 	val, err := json.Marshal(message.Value)
 	if err != nil {
-		fmt.Println("ERROR : ", err)
+		fmt.Println("ERROR : json.Marshal : ", err)
 		return false
 	}
 
@@ -59,12 +59,14 @@ func ConsumeData(topic string, message chan interface{}) {
 		kafkamsg := types.KafkaMessage{
 			Key: string(msg.Key),
 		}
+
 		err = json.Unmarshal(msg.Value, &kafkamsg.Value)
 		if err != nil {
 			fmt.Println("ERROR : ", err)
 			break
 		}
 		message <- kafkamsg
+
 		//respjson, err := json.Marshal(kafkamsg)
 		//message <- respjson
 	}

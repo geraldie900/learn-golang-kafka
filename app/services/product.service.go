@@ -1,9 +1,12 @@
 package services
 
 import (
+	"encoding/json"
+	"fmt"
 	"golang_kafka/app/functions"
 	"golang_kafka/app/types"
 	"golang_kafka/utils"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -16,10 +19,18 @@ func IntroduceProduct(c *fiber.Ctx) error {
 		return err
 	}
 
+	product.ReleaseDate = time.Now().Format(time.RFC850)
+	// fmt.Println("BEFORE : ", product)
+	byteProduct, err := json.Marshal(product)
+	// fmt.Println("AFTER :", byteProduct)
+	if err != nil {
+		fmt.Println("ERROR : json.marshal service", err)
+	}
+
 	kafkamessage := types.KafkaMessage{
 		Value: types.KafkaValue{
 			RequestType: "new product",
-			Product:     *product,
+			Product:     byteProduct,
 		},
 	}
 
@@ -27,8 +38,8 @@ func IntroduceProduct(c *fiber.Ctx) error {
 
 	if sent {
 		return c.Status(200).JSON(fiber.Map{
-			"message":       "Product produced successfully",
 			"response_code": 200,
+			"message":       "Product produced successfully",
 		})
 	}
 
