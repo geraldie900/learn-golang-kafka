@@ -8,18 +8,12 @@ import (
 var (
 	// PORT returns the server listening port
 	PORT = getEnv("PORT", "3000")
-	// DB returns the name of the sqlite database
-	DB = getEnv("DB", "agentbanking")
 	// TOKENKEY returns the jwt token secret
 	TOKENKEY = getEnv("TOKEN_KEY", "laksdjflkasjfwj92jfslj2qu0-9apsoifjk")
 	// TOKENEXP returns the jwt token expiration duration.
 	// Should be time.ParseDuration string. Source: https://golang.org/pkg/time/#ParseDuration
 	// default: 10h
 	TOKENEXP = getEnv("TOKEN_EXP", "10h")
-	// DBUsername database username
-	DBUsername = getEnv("DBUSERNAME", "root")
-	// DBPassword database password
-	DBPassword = getEnv("DBPASSWORD", "openSesame")
 )
 
 func getEnv(name string, fallback string) string {
