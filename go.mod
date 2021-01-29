@@ -3,7 +3,6 @@ module golang_kafka
 go 1.15
 
 require (
-	github.com/arangodb/go-driver v0.0.0-20201230202041-2c13286cfbda
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/frankban/quicktest v1.11.3 // indirect
 	github.com/go-playground/validator/v10 v10.4.1
